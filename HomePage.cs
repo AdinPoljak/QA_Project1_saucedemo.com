@@ -28,7 +28,7 @@ namespace QA_Project___saucedemo.com
         IWebElement AddToCartThroughItem => driver.FindElement(By.CssSelector("#inventory_item_container > div > div > div > button"));
         IWebElement ShoppingCart => driver.FindElement(By.Id("shopping_cart_container"));
         IWebElement AllItemsContainer => driver.FindElement(By.XPath("//*[@id='inventory_container']/div/div[1]/div[3]/button"));
-        IWebElement _AboutLoaded => driver.FindElement(By.ClassName("nav-image-link"));
+        IWebElement AboutPageLoaded => driver.FindElement(By.ClassName("nav-image-link"));
         IWebElement LoginButton => driver.FindElement(By.Id("login-button"));
 
 
@@ -131,7 +131,7 @@ namespace QA_Project___saucedemo.com
         }
         public bool AboutLoaded()
         {
-            bool About = _AboutLoaded.Displayed;
+            bool About = AboutPageLoaded.Displayed;
             return About;
         }
         public bool LoginButtonLoaded()

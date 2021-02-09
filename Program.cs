@@ -23,11 +23,11 @@ namespace QA_Project___saucedemo.com
 
 
         //Setting up pages
-        IWebDriver _driver = SetUpBrowser.BrowserSetup();
-        LoginPage login => new LoginPage(_driver);
-        HomePage _HomePage => new HomePage(_driver);
-        CartPage Cart => new CartPage(_driver);
-        CheckOutPage CheckOut => new CheckOutPage(_driver);
+        IWebDriver driver = SetUpBrowser.BrowserSetup();
+        LoginPage login => new LoginPage(driver);
+        HomePage Home => new HomePage(driver);
+        CartPage Cart => new CartPage(driver);
+        CheckOutPage CheckOut => new CheckOutPage(driver);
 
         //Tests
         [Test]
@@ -35,9 +35,9 @@ namespace QA_Project___saucedemo.com
         {
             
             login.Login(usernameTrue, passwordTrue);
-            string PageURL = _driver.Url;
+            string PageURL = driver.Url;
             Assert.AreEqual(PageURL, "https://www.saucedemo.com/inventory.html");
-            _driver.Quit();
+            driver.Quit();
            
 
         }
@@ -45,101 +45,101 @@ namespace QA_Project___saucedemo.com
         public void LoginTestFail()
         {
             login.Login(usernameFalse, passwordFalse);
-            string PageURL = _driver.Url;
+            string PageURL = driver.Url;
             Assert.AreEqual(PageURL, "https://www.saucedemo.com/");
-            _driver.Quit();
+            driver.Quit();
 
         }
         [Test]
         public void CheckHomepage_Allitems_Loaded()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.ClickButton_Allitems();
-            bool AllitemsContainer = _HomePage.ItemContainer();
+            Home.ClickButton_Allitems();
+            bool AllitemsContainer = Home.ItemContainer();
             Assert.True(AllitemsContainer);
-            _driver.Quit();
+            driver.Quit();
 
         }
         [Test]
         public void CheckHomepage_About_Loaded()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.ClickButton_About();
-            bool AboutLoaded = _HomePage.AboutLoaded();
+            Home.ClickButton_About();
+            bool AboutLoaded = Home.AboutLoaded();
             Assert.True(AboutLoaded);
-            _driver.Quit();
+            driver.Quit();
         }
         [Test]
         public void CheckHomepage_Logout()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.ClickButton_Logout();
-            bool LoginButton = _HomePage.LoginButtonLoaded();
+            Home.ClickButton_Logout();
+            bool LoginButton = Home.LoginButtonLoaded();
             Assert.True(LoginButton);
-            _driver.Quit();
+            driver.Quit();
         }
         [Test]
         public void CheckHomepage_Reset()
         {
             login.Login(usernameTrue, passwordTrue);;
-            _HomePage.Click_AddToCart1();
-            string CartButtonState =_HomePage.GetCartButtonState();
-            _HomePage.Clickbutton_Reset();
+            Home.Click_AddToCart1();
+            string CartButtonState = Home.GetCartButtonState();
+            Home.Clickbutton_Reset();
             //Assert.AreEqual(CartButtonState, "REMOVE"); - this test fails here, the bug is that the page doesn't reset the CART button state
-            string IconState = _HomePage.GetCartIcon();
+            string IconState = Home.GetCartIcon();
             Assert.AreEqual(IconState, "Not Displayed");
-            _driver.Quit();
+            driver.Quit();
         }
         [Test]
         public void CheckFirstItemLoaded()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.ClickFirstItem();
-            string ItemTitle = _HomePage.ReturnItemTitle();
+            Home.ClickFirstItem();
+            string ItemTitle = Home.ReturnItemTitle();
             Assert.AreEqual(ItemTitle, "Sauce Labs Backpack");
-            string ItemDesc = _HomePage.ReturnItemDesc();
+            string ItemDesc = Home.ReturnItemDesc();
             Assert.AreEqual(ItemDesc, "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
-            string ItemPrice = _HomePage.ReturnItemPrice();
+            string ItemPrice = Home.ReturnItemPrice();
             Assert.AreEqual(ItemPrice, "$29.99");
-            _driver.Quit();
+            driver.Quit();
         }
         [Test]
         public void AddFirstItemInCartCheck()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.ClickFirstItem();
-            _HomePage.AddToCartItem();
-            string CartState = _HomePage.GetCartButtonStateInItem();
+            Home.ClickFirstItem();
+            Home.AddToCartItem();
+            string CartState = Home.GetCartButtonStateInItem();
             Assert.AreEqual(CartState, "REMOVE");
-            _HomePage.ClickOnShoppingCart();
+            Home.ClickOnShoppingCart();
             string ItemTitle = Cart.GetItemTitle();
             Assert.AreEqual(ItemTitle, "Sauce Labs Backpack");
-            _driver.Quit();
+            driver.Quit();
 
         }
         [Test]
         public void RemoveFromCartItemCheck()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.Click_AddToCart1();
-            _HomePage.ClickOnShoppingCart();
+            Home.Click_AddToCart1();
+            Home.ClickOnShoppingCart();
             Cart.RemoveFromCartItem();
             string CartState = Cart.CheckCartItem();
             Assert.AreEqual(CartState, "Item not in Cart");
             string IconState = Cart.GetCartIcon();
             Assert.AreEqual(IconState, "Not Displayed");
             Cart.ClickContinueShopping();
-            string AddToCartState = _HomePage.GetCartButtonState();
+            string AddToCartState = Home.GetCartButtonState();
             Assert.AreEqual(AddToCartState, "ADD TO CART");
-            _driver.Quit();
+            driver.Quit();
 
         }
         [Test]
         public void CheckoutItem()
         {
             login.Login(usernameTrue, passwordTrue);
-            _HomePage.Click_AddToCart1();
-            _HomePage.ClickOnShoppingCart();
+            Home.Click_AddToCart1();
+            Home.ClickOnShoppingCart();
             string CartState = Cart.CheckCartItem();
             Assert.AreEqual(CartState, "Item in Cart");
             string IconState = Cart.GetCartIcon();
@@ -153,7 +153,7 @@ namespace QA_Project___saucedemo.com
             Assert.AreEqual(ItemDesc, "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
             bool ImageDis = CheckOut.IsImageDisplayed();
             Assert.True(ImageDis);
-            _driver.Quit();
+            driver.Quit();
 
 
         }
