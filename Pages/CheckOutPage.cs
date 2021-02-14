@@ -5,19 +5,18 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace QA_Project___saucedemo.com
+namespace QA_Project___saucedemo.com.Pages
 {
-    class CheckOutPage
+    class CheckOutPage : Page
     {
-        IWebDriver driver;
         public CheckOutPage(IWebDriver driver)
         {
             this.driver = driver;
         }
 
-        IWebElement FirstName => driver.FindElement(By.Id("first-name"));
-        IWebElement LastName => driver.FindElement(By.Id("last-name"));
-        IWebElement ZipCode => driver.FindElement(By.Id("postal-code"));
+        IWebElement FirstName => FindElementById("first-name");
+        IWebElement LastName => FindElementById("last-name");
+        IWebElement ZipCode => FindElementById("postal-code");
         IWebElement ContinueButton => driver.FindElement(By.CssSelector("#checkout_info_container > div > form > div.checkout_buttons > input"));
         IWebElement CancelButton => driver.FindElement(By.CssSelector("#checkout_summary_container > div > div.summary_info > div.cart_footer > a.cart_cancel_link.btn_secondary"));
         IWebElement FinishButton => driver.FindElement(By.CssSelector("#checkout_summary_container > div > div.summary_info > div.cart_footer > a.btn_action.cart_button"));
@@ -45,8 +44,7 @@ namespace QA_Project___saucedemo.com
         }
         public string ReturnItemDesc()
         {
-            string Desc = FinishDesc.Text;
-            return Desc;
+            return FinishDesc.Text;
         }
         public bool IsImageDisplayed()
         {

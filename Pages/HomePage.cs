@@ -7,12 +7,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace QA_Project___saucedemo.com
+namespace QA_Project___saucedemo.com.Pages
 {
-    class HomePage
-    {
-        IWebDriver driver;
-       
+    class HomePage : Page
+    { 
         public HomePage(IWebDriver driver)
         {
             this.driver = driver;

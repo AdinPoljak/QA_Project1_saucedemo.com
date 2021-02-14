@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using QA_Project___saucedemo.com.Pages;
 using System;
 using System.Threading;
 
@@ -23,14 +24,22 @@ namespace QA_Project___saucedemo.com
 
 
         //Setting up pages
-        IWebDriver driver = SetUpBrowser.BrowserSetup();
+        IWebDriver driver;
         LoginPage login => new LoginPage(driver);
         HomePage Home => new HomePage(driver);
         CartPage Cart => new CartPage(driver);
         CheckOutPage CheckOut => new CheckOutPage(driver);
 
+        [SetUp]
+        public void setup(string browser)
+        {
+            if (browser == "Chrome")
+                driver = SetUpBrowser.BrowserSetup(new ChromeDriver());
+
+        }
+
         //Tests
-        [Test]
+        [Test] 
         public void LoginTestPass()
         {
             

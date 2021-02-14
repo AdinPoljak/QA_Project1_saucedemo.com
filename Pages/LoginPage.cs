@@ -5,12 +5,10 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace QA_Project___saucedemo.com
+namespace QA_Project___saucedemo.com.Pages
 {
-    class LoginPage
+    class LoginPage : Page
     {
-        IWebDriver driver;
-
         public LoginPage(IWebDriver driver)
         {
             this.driver = driver;
@@ -26,8 +24,5 @@ namespace QA_Project___saucedemo.com
             password.SendKeys(_password);
             LoginButton.Click();
         }
-
-
-
     }
 }

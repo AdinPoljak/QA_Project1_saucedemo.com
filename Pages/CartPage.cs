@@ -4,23 +4,20 @@ using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using QA_Project___saucedemo.com.Selectors;
 
-namespace QA_Project___saucedemo.com
+namespace QA_Project___saucedemo.com.Pages
 {
-    class CartPage
+    class CartPage : Page
     {
-        IWebDriver driver;
         public CartPage(IWebDriver driver)
         {
             this.driver = driver;
         }
-        IWebElement ItemTitle => driver.FindElement(By.CssSelector("#item_4_title_link > div"));
-        IWebElement RemoveFromCart => driver.FindElement(By.CssSelector("#cart_contents_container > div > div.cart_list > div.cart_item > div.cart_item_label > div.item_pricebar > button"));
+        IWebElement ItemTitle => FindElementByCssSelector(CartSelectors.ITEM_TITLE_SELECTOR);
+        IWebElement RemoveFromCart => driver.FindElement(By.CssSelector(CartSelectors.REMOVE_FROM_CART_BUTTON_SELECTOR));
         IWebElement ContinueShopping => driver.FindElement(By.ClassName("btn_secondary"));
         IWebElement Checkout => driver.FindElement(By.CssSelector("#cart_contents_container > div > div.cart_footer > a.btn_action.checkout_button"));
-
-
-
 
 
         public string GetItemTitle()
